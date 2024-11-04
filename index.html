@@ -4,12 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Filmoteca</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <header>
+        <h1>Bienvenue sur Filmoteca !</h1>
+    </header>
+    <main>
+        <button id="btnLister">Ajouter des films</button>
+
+        <hr style="margin: 30px 0;">
+
+        <h3>Ma collection :</h3>
+        <table id="tableauFilms">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Genre</th>
+                    <th>Réalisateur</th>
+                    <th>Synopsis</th>
+                    <th>Année de sortie</th>
+                    <th>Note</td>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tableauContenu">
+                <td>1</td>
+                <td>Film 1</td>
+                <td>Comique</td>
+                <td>Mr Test</td>
+                <td>Synopsis de Film 1</td>
+                <td>2000</td>
+                <td>16/20</td>
+                <td>
+                    <button class="btnActions">Modifier</button>
+                    <button class="btnActions">Supprimer</button>
+                    <button class="btnActions note">Ajouter note et commentaire</button>
+                </td>
+            </tbody>
+        </table>
+    </main>
     
+    <footer>
+        <p>Copyright © 2024 Filmoteca. Tous droits réservés.</p>    
+    </footer>
+
 </body>
 
 </html>

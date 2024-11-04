@@ -1,0 +1,42 @@
+body {
+    background-color: rgb(216, 228, 239);
+    text-align: center;
+}
+
+#tableauFilms {
+    margin: 0 auto;
+}
+
+#tableauFilms, td, th {
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
+    min-width: 90%;
+}
+
+.btnActions, #btnLister{
+    padding: 10px;
+    margin: 10px;
+    border-radius: 30px;
+    cursor: pointer;
+    border: 2px solid black;
+}
+
+.btnActions:hover, #btnLister:hover {
+    background:rgb(125, 21, 21) ;
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+#btnLister:hover, .note:hover {
+    background: rgb(70, 117, 20);
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1px;
+    background-color: rgb(163, 163, 163);
+    margin: 0;
+}
