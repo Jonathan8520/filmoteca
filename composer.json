@@ -1,0 +1,17 @@
+{
+    "name": "jlevy/projet-film",
+    "autoload": {
+        "psr-4": {
+            "Jlevy\\ProjetFilm\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jonathan Levy",
+            "email": "jonathan.levy2@etu.univ-paris1.fr"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.14"
+    }
+}
