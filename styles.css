@@ -7,14 +7,17 @@ body {
     margin: 0 auto;
 }
 
-#tableauFilms, td, th {
+#tableauFilms,
+td,
+th {
     border: 1px solid black;
     text-align: center;
     padding: 10px;
     min-width: 90%;
 }
 
-.btnActions, #btnLister{
+.btnActions,
+#btnLister {
     padding: 10px;
     margin: 10px;
     border-radius: 30px;
@@ -22,12 +25,15 @@ body {
     border: 2px solid black;
 }
 
-.btnActions:hover, #btnLister:hover {
-    background:rgb(125, 21, 21) ;
+.btnActions:hover,
+#btnLister:hover {
+    background: rgb(125, 21, 21);
     color: white;
     transition: all 0.3s ease-in-out;
 }
-#btnLister:hover, .vert:hover {
+
+#btnLister:hover,
+.vert:hover {
     background: rgb(70, 117, 20);
 }
 
