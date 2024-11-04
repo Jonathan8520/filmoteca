@@ -48,10 +48,9 @@
                     <td>{{ film.director }}</td>
                     <td>{{ film.genre }}</td>
                     <td>
-                        <button class="btnActions" onclick="editFilm({{ film.id }})">Modifier</button>
-                        <button class="btnActions" onclick="deleteFilm({{ film.id }})">Supprimer</button>
-                        <button class="btnActions vert" onclick="addComment({{ film.id }})">Ajouter note et
-                            commentaire</button>
+                        <button class="btnActions">Modifier</button>
+                        <button class="btnActions">Supprimer</button>
+                        <button class="btnActions vert">Ajouter note et commentaire</button>
                     </td>
                 </tr>
                 {% endfor %}
