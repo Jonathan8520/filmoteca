@@ -15,8 +15,18 @@ try {
 }
 
 
+/////////////////////////////////////////////////////////// Fin pour la connexion
+
+
 // Récupérer les films depuis la base de données
 $films = $pdo->query("SELECT * FROM movie")->fetchAll(PDO::FETCH_ASSOC);
 
-// Rendre le template avec les films
-echo $twig->render('index.html.twig', ['films' => $films]);
+$requestUri = $_SERVER['REQUEST_URI'];
+
+if ($requestUri === '/films') {
+    echo $twig->render('films.html.twig', ['films' => $films]);
+} elseif ($requestUri === '/contact') {
+    echo $twig->render('contact.html.twig');
+} else {
+    echo $twig->render('index.html.twig');
+}

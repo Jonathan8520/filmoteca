@@ -50,11 +50,16 @@ th {
 
 .btnActions,
 #btnLister {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+    background: #d8d8d8;
+    border: 2px solid black;
+    border-radius: 30px;
     padding: 10px;
     margin: 10px;
-    border-radius: 30px;
     cursor: pointer;
-    border: 2px solid black;
 }
 
 .btnActions:hover,
@@ -73,5 +78,5 @@ footer {
     width: 100%;
     padding: 1px;
     background-color: rgb(163, 163, 163);
-    margin: 0;
+    margin-top: 50px;
 }
