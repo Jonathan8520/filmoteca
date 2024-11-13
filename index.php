@@ -2,6 +2,8 @@
 
 require_once 'vendor/autoload.php';
 
+use App\Core\Router; 
+
 $loader = new \Twig\Loader\FilesystemLoader('templates');
 $twig = new \Twig\Environment($loader);
 
@@ -14,8 +16,6 @@ try {
     exit; // Arrêter l'exécution si la connexion échoue
 }
 
-
-require_once 'src/Router.php';
 
 $router = new Router($twig, $pdo);
 $router->route();

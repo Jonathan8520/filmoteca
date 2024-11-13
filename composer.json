@@ -2,7 +2,7 @@
     "name": "jlevy/projet-film",
     "autoload": {
         "psr-4": {
-            "Jlevy\\ProjetFilm\\": "src/"
+            "App\\": "src/"
         }
     },
     "authors": [
