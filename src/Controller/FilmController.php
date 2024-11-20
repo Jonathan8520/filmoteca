@@ -17,10 +17,6 @@ class FilmController
 
     public function index()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
-            $this->delete($_GET['id']);
-        }
-
         $films = $this->filmRepository->findAll();
         echo $this->twig->render('films.html.twig', ['films' => $films]);
     }
