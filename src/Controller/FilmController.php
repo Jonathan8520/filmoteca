@@ -3,11 +3,10 @@
 namespace App\Controller;
 
 use App\Repository\FilmRepository;
-use PDO;
 
 class FilmController extends BaseController
 {
-    
+
     private $filmRepository;
 
     public function __construct($twig, $pdo)
@@ -27,7 +26,11 @@ class FilmController extends BaseController
 
     public function list()
     {
-        echo "Liste des films";
+        // Récupérer tous les films à l'aide de FilmRepository
+        $films = $this->filmRepository->findAll();
+
+        // Passer les films à la vue Twig
+        echo $this->twig->render('films_liste.html.twig', ['films' => $films]);
     }
 
     public function create()
@@ -35,9 +38,24 @@ class FilmController extends BaseController
         echo "Création d'un film";
     }
 
-    public function read()
+    public function read(array $queryParams)
     {
-        echo "Lecture d'un film";
+        // Vérifier si 'id' est présent dans les paramètres
+        if (!isset($queryParams['id']) || !is_numeric($queryParams['id'])) {
+            echo $this->twig->render('error.html.twig', ['message' => "ID invalide ou manquant."]);
+            return;
+        }
+
+        $id = (int) $queryParams['id'];
+        $film = $this->filmRepository->findById($id);
+
+        if (!$film) {
+            echo $this->twig->render('error.html.twig', ['message' => "Film introuvable."]);
+            return;
+        }
+
+        // Rendu de la page des détails
+        echo $this->twig->render('film_details.html.twig', ['film' => $film]);
     }
 
     public function update()

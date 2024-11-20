@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use PDO;
 
-class FilmRepository
+class filmRepository
 {
     private $pdo;
 
@@ -26,6 +26,15 @@ class FilmRepository
         $stmt = $this->pdo->prepare("SELECT * FROM film WHERE id = :id");
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        /* 
+            $stmt = $this->pdo->prepare("SELECT * FROM film WHERE id = :id LIMIT 1");
+            $stmt->execute([':id' => $id]);
+        
+            $film = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+            return $film ?: null; // Retourne null si aucun film n'est trouvé
+         */
     }
 
     // Ajouter un nouveau film

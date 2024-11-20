@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}Filmoteca
+			{% endblock %}
+		</title>
+
+		<link rel="stylesheet" href="/style/base.css"> {% block stylesheet %}{% endblock %}
+
+		</head>
+
+		<body>
+
+			<header>
+				<nav>
+					<ul>
+						<li><a href="/">Accueil</a></li>
+						<li><a href="/films">Films</a></li>
+						<li><a href="/contact">Contact</a></li>
+					</ul>
+				</nav>
+			</header>
+
+			 <script>
+						document.addEventListener('DOMContentLoaded', function () {
+						    // Récupérer l'URL actuelle
+						    const currentPath = window.location.pathname;
+						
+						    // Récupérer tous les liens de navigation
+						    const links = document.querySelectorAll('nav a');
+						
+						    // Parcourir tous les liens
+						    links.forEach(link => {
+						        // Si l'URL actuelle correspond exactement ou commence par l'URL du lien
+						        if (currentPath === link.getAttribute('href') || currentPath.startsWith(link.getAttribute('href') + '/')) {
+						            link.classList.add('active');
+						        } else {
+						            link.classList.remove('active');
+						        }
+						    });
+						});
+						</script>
+
+			<main>
+				{% block body %}{% endblock %}
+			</main>
+
+			<footer>
+				<p>Copyright © 2024 Filmoteca. Tous droits réservés.</p>
+			</footer>
+
+		</body>
+
+	</html>

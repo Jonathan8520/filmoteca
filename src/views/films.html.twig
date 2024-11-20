@@ -1,0 +1,38 @@
+{% extends 'index.html.twig' %}
+
+{% block title %}
+    Films - Liste
+{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="/style/films.css">
+{% endblock %}
+
+{% block body %}
+    <div style="margin: 15px; display: flex; justify-content: center; align-items: center; align-content: center;">
+        <a href="/films/create" class="btnActions vert">Ajouter des films</a>
+        <a href="/films/list" class="btnActions vert">Voir tout</a>
+    </div>
+
+    <hr style="margin: 10px 0;">
+
+    <h3>Aperçu de ma collection :</h3>
+
+    <div class="films-grid">
+        {% for film in films|slice(0, 3) %}
+            <div class="film-card">
+                <h4>{{ film.title }}</h4>
+                <p><strong>Année :</strong> {{ film.year }}</p>
+                <p><strong>Genre :</strong> {{ film.type }}</p>
+                <p><strong>Réalisateur :</strong> {{ film.director }}</p>
+                <p><strong>Synopsis :</strong> {{ film.synopsis|slice(0, 100) }}...</p>
+                <div class="btnsTableauActions">
+                    <a href="/films/read?id={{ film.id }}" class="btnActions vert">Détails</a>
+                    <a href="/films/update?id={{ film.id }}" class="btnActions">Modifier</a>
+                    <a href="/films/delete?id={{ film.id }}" class="btnActions">Supprimer</a>
+                    <a href="/films/add-note?id={{ film.id }}" class="btnActions vert">Ajouter note et commentaire</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
