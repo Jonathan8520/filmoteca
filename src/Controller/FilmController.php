@@ -3,69 +3,50 @@
 namespace App\Controller;
 
 use App\Repository\FilmRepository;
+use PDO;
 
-class FilmController
+class FilmController extends BaseController
 {
-    private $twig;
+    
     private $filmRepository;
 
     public function __construct($twig, $pdo)
     {
-        $this->twig = $twig;
+        parent::__construct($twig);  // Appelle le constructeur de la classe parente pour initialiser Twig
         $this->filmRepository = new FilmRepository($pdo);
     }
 
     public function index()
     {
+        // Récupérer tous les films à l'aide de FilmRepository
         $films = $this->filmRepository->findAll();
+
+        // Passer les films à la vue Twig
         echo $this->twig->render('films.html.twig', ['films' => $films]);
     }
 
-    public function create() 
+    public function list()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = [
-                'title' => $_POST['title'],
-                'year' => $_POST['year'],
-                'genre' => $_POST['genre'],
-                'synopsis' => $_POST['synopsis'],
-                'director' => $_POST['director']
-            ];
-            $this->filmRepository->create($data);
-            header('Location: /films');
-            exit();
-        }
+        echo "Liste des films";
     }
 
-    public function read($id)
+    public function create()
     {
-        $film = $this->filmRepository->findById($id);
-        echo $this->twig->render('film_detail.html.twig', ['film' => $film]);
+        echo "Création d'un film";
     }
 
-    public function update($id)
+    public function read()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = [
-                'title' => $_POST['title'],
-                'year' => $_POST['year'],
-                'genre' => $_POST['genre'],
-                'synopsis' => $_POST['synopsis'],
-                'director' => $_POST['director']
-            ];
-            $this->filmRepository->update($id, $data);
-            header('Location: /films');
-            exit();
-        }
-
-        $film = $this->filmRepository->findById($id);
-        echo $this->twig->render('film_edit.html.twig', ['film' => $film]);
+        echo "Lecture d'un film";
     }
 
-    public function delete($id)
+    public function update()
     {
-        $this->filmRepository->delete($id);
-        header('Location: /films');
-        exit();
+        echo "Mise à jour d'un film";
+    }
+
+    public function delete()
+    {
+        echo "Suppression d'un film";
     }
 }

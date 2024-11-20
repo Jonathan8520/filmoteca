@@ -48,14 +48,8 @@
 							<td>{{ film.director }}</td>
 							<td>{{ film.genre }}</td>
 							<td>
-								<form action="/films/update" method="POST" style="display: inline;">
-									<input type="hidden" name="id" value="{{ film.id }}">
-									<button type="submit" class="btnActions btnEdit">Modifier</button>
-								</form>
-								<form action="/films/delete" method="POST" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?')">
-									<input type="hidden" name="id" value="{{ film.id }}">
-									<button type="submit" class="btnActions btnDelete">Supprimer</button>
-								</form>
+								<button class="btnActions">Modifier</button>
+								<button class="btnActions">Supprimer</button>
 								<button class="btnActions vert">Ajouter note et commentaire</button>
 							</td>
 						</tr>
