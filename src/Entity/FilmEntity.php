@@ -4,92 +4,112 @@ namespace App\Entity;
 
 class FilmEntity
 {
-    private $id;
-    private $title;
-    private $year;
-    private $genre;
-    private $synopsis;
-    private $director;
-    private $created_at;
-    private $deleted_at;
-
+    private int $id;
+    private string $title;
+    private ?string $year = null;
+    private string $type;
+    private ?string $synopsis = null;
+    private ?string $director = null;
+    private ?\DateTime $deletedAt = null;
+    private \DateTime $createdAt;
+    private ?\DateTime $updatedAt = null;
 
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId($id): void {
+    public function setId(int $id): self
+    {
         $this->id = $id;
+        return $this;
     }
-    
+
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(string $title): self
     {
         $this->title = $title;
+        return $this;
     }
 
-    public function getYear(): string
+    public function getYear(): ?string
     {
         return $this->year;
     }
 
-    public function setYear(string $year): void
+    public function setYear(?string $year): self
     {
         $this->year = $year;
+        return $this;
     }
 
-    public function getGenre(): string
+    public function getType(): string
     {
-        return $this->genre;
+        return $this->type;
     }
 
-    public function setGenre(string $genre): void
+    public function setType(string $type): self
     {
-        $this->genre = $genre;
+        $this->type = $type;
+        return $this;
     }
 
-    public function getSynopsis(): string
+    public function getSynopsis(): ?string
     {
         return $this->synopsis;
     }
 
-    public function setSynopsis(string $synopsis): void
+    public function setSynopsis(?string $synopsis): self
     {
         $this->synopsis = $synopsis;
+        return $this;
     }
 
-    public function getDirector(): string
+    public function getDirector(): ?string
     {
         return $this->director;
     }
 
-    public function setDirector(string $director): void
+    public function setDirector(?string $director): self
     {
         $this->director = $director;
+        return $this;
     }
 
-    public function getCreatedAt(): string
+    public function getDeletedAt(): ?\DateTime
     {
-        return $this->created_at;
+        return $this->deletedAt;
     }
 
-    public function setCreatedAt(string $created_at): void
+    public function setDeletedAt(?\DateTime $deletedAt): self
     {
-        $this->created_at = $created_at;
+        $this->deletedAt = $deletedAt;
+        return $this;
     }
 
-    public function getDeletedAt(): ?string
+    public function getCreatedAt(): \DateTime
     {
-        return $this->deleted_at;
+        return $this->createdAt;
     }
 
-    public function setDeletedAt(?string $deleted_at): void
+    public function setCreatedAt(\DateTime $createdAt): self
     {
-        $this->deleted_at = $deleted_at;
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 }

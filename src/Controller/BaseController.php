@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
 class BaseController
 {
-    protected $twig;
+    protected Environment $twig;
 
-    public function __construct($twig)
+    public function __construct()
     {
-        $this->twig = $twig;
+        $loader = new FilesystemLoader(__DIR__ . '/../views');
+        $this->twig = new Environment($loader);
     }
-
-    
 }

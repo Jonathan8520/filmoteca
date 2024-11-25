@@ -6,14 +6,6 @@ use App\Controller\FilmController;
 
 class Router
 {
-    private $twig;
-    private $pdo;
-
-    public function __construct($twig, $pdo)
-    {
-        $this->twig = $twig;
-        $this->pdo = $pdo;
-    }
 
     public function route()
     {
@@ -40,12 +32,7 @@ class Router
                 return;
             }
 
-            // Instancie le contrôleur avec les dépendances
-            if ($route === 'films') {
-                $controller = new $controllerName($this->twig, $this->pdo); // Passe Twig et PDO au contrôleur
-            } else {
-                $controller = new $controllerName($this->twig); // Si d'autres contrôleurs n'ont besoin que de Twig
-            }
+            $controller = new $controllerName();
 
             // Vérifie si la méthode existe dans le contrôleur
             if (method_exists($controller, $action)) {
