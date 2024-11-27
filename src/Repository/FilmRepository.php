@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Core\DatabaseConnection;
 use App\Service\EntityMapper;
-use App\Entity\FilmEntity;
+use App\Entity\Film;
 
 class FilmRepository
 {
@@ -25,7 +25,7 @@ class FilmRepository
 
         $films = $stmt->fetchAll();
 
-        return $this->entityMapperService->mapToEntities($films, FilmEntity::class);
+        return $this->entityMapperService->mapToEntities($films, Film::class);
     }
 
     // Récupérer un film par son ID
@@ -37,7 +37,7 @@ class FilmRepository
 
         $film = $stmt->fetch();
 
-        return $this->entityMapperService->mapToEntity($film, FilmEntity::class);
+        return $this->entityMapperService->mapToEntity($film, Film::class);
     }
 
     // Ajouter un nouveau film

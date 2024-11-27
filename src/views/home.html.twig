@@ -1,17 +1,23 @@
 {% extends 'index.html.twig' %}
 
 {% block title %}
-	Accueil
+    Accueil
 {% endblock %}
 
 {% block body %}
+<div class="container my-5 text-center">
+    <h1 class="mb-4">Bienvenue sur <b>Filmoteca</b>!</h1>
 
-	<h1>Bienvenue sur Filmoteca!</h1>
+    <!-- Bouton d'ajout de films -->
+    <a href="/films/create" class="btn btn-success btn-lg mb-3">
+        <i class="bi bi-plus-circle"></i> Ajouter des films
+    </a>
 
-	<button class="btnActions vert">Ajouter des films</button>
+    <hr class="my-4">
 
-	<hr style="margin: 30px 0;">
-
-	<a href="/films" class="btnActions vert">Voir tous mes films</a>
-
+    <!-- Lien pour voir les films -->
+    <a href="/films" class="btn btn-primary btn-lg">
+        <i class="bi bi-film"></i> Voir tous mes films
+    </a>
+</div>
 {% endblock %}

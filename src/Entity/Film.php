@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-class FilmEntity
+class Film
 {
     private int $id;
     private string $title;

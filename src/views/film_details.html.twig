@@ -1,41 +1,44 @@
 {% extends 'index.html.twig' %}
 
 {% block title %}
-	Détails du Film -
-	{{ film.title }}
-{% endblock %}
-
-{% block stylesheet %}
-	<link rel="stylesheet" href="/style/films.css">
+    Détails du Film - {{ film.title }}
 {% endblock %}
 
 {% block body %}
-	<div class="detailsFilm">
-		<h1>Détails du Film :
-			<br>
-			<a>{{ film.title }}</a>
-		</h1>
-		<ul>
-			<li>
-				<strong>ID :</strong>
-				{{ film.id }}</li>
-			<li>
-				<strong>Titre :</strong>
-				{{ film.title }}</li>
-			<li>
-				<strong>Année :</strong>
-				{{ film.year }}</li>
-			<li>
-				<strong>Genre :</strong>
-				{{ film.type }}</li>
-			<li>
-				<strong>Synopsis :</strong>
-				{{ film.synopsis }}</li>
-			<li>
-				<strong>Réalisateur :</strong>
-				{{ film.director }}</li>
-		</ul>
-
-		<a href="/films" class="btnActions vert">Retour à la liste des films</a>
-	</div>
+<div class="container my-5">
+    <!-- Card pour les détails du film -->
+    <div class="card shadow-lg w-75 mx-auto">
+        <div class="card-header bg-primary text-white text-center">
+            <h1 class="card-title mb-0">Détails du Film</h1>
+        </div>
+        <div class="card-body">
+            <h2 class="text-center text-primary">{{ film.title }}</h2>
+            <ul class="list-group list-group-flush my-4">
+                <li class="list-group-item">
+                    <strong>ID :</strong> {{ film.id }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Titre :</strong> {{ film.title }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Année :</strong> {{ film.year }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Genre :</strong> {{ film.type }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Synopsis :</strong> {{ film.synopsis }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Réalisateur :</strong> {{ film.director }}
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer text-center">
+            <a href="/films" class="btn btn-primary">
+                <i class="bi bi-arrow-left"></i> Retour à la liste des films
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

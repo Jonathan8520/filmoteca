@@ -10,43 +10,60 @@
 
 {% block body %}
 
-	<div style="margin: 15px; display: flex; justify-content: center; align-items: center; align-content: center;">
-		<a href="/films/create" class="btnActions vert">Ajouter des films</a>
+<div class="container py-5">
+
+	<div class="text-center mb-4">
+		<a href="/films/create" class="btn btn-lg btn-outline-success">
+			<i class="bi bi-plus-circle"></i> Ajouter des films
+		</a>
 	</div>
 
-<hr style="margin: 10px 0;">
 
-<h3>Toute ma collection :</h3>
-<table id="tableauFilms">
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Titre</th>
-			<th>Année de sortie</th>
-			<th>Synopsis</th>
-			<th>Réalisateur</th>
-			<th>Genre</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody id="tableauContenu">
-		{% for film in films %}
-			<tr>
-				<td>{{ film.id }}</td>
-				<td>{{ film.title }}</td>
-				<td>{{ film.year }}</td>
-				<td>{{ film.synopsis }}</td>
-				<td>{{ film.director }}</td>
-				<td>{{ film.type }}</td>
-				<td>
-					<div class="btnsTableauActions">
-						<a href="/films/read?id={{ film.id }}" class="btnActions vert">Détails</a>
-						<a href="/films/update?id={{ film.id }}" class="btnActions">Modifier</a>
-						<a href="/films/delete?id={{ film.id }}" class="btnActions">Supprimer</a>
-						<a href="/films/add-note?id={{ film.id }}" class="btnActions vert">Ajouter note et commentaire</a>
-					</div>
-				</td>
-			</tr>
-		</a>
-	</tbody>
-</td></tr>{% endfor %}</tbody></table>{% endblock %}
+	<h3 class="mb-3 text-center text-primary">Toute ma collection :</h3>
+	
+	<div class="table-responsive shadow-sm rounded">
+		<table class="table table-bordered table-striped table-hover align-middle">
+			<thead class="table-primary text-center">
+				<tr>
+					<th>ID</th>
+					<th>Titre</th>
+					<th>Année</th>
+					<th>Synopsis</th>
+					<th>Réalisateur</th>
+					<th>Genre</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody id="tableauContenu">
+				{% for film in films %}
+				<tr>
+					<td class="text-center">{{ film.id }}</td>
+					<td>{{ film.title }}</td>
+					<td class="text-center">{{ film.year }}</td>
+					<td class="text-truncate" style="max-width: 250px;">{{ film.synopsis }}</td>
+					<td>{{ film.director }}</td>
+					<td>{{ film.type }}</td>
+					<td class="text-center">
+						<div class="d-flex gap-2 justify-content-center">
+							<a href="/films/read?id={{ film.id }}" class="btn btn-success btn-sm">
+								<i class="bi bi-info-circle"></i> Détails
+							</a>
+							<a href="/films/update?id={{ film.id }}" class="btn btn-primary btn-sm">
+								<i class="bi bi-pencil-square"></i> Modifier
+							</a>
+							<a href="/films/delete?id={{ film.id }}" class="btn btn-danger btn-sm">
+								<i class="bi bi-trash"></i> Supprimer
+							</a>
+							<a href="/films/add-note?id={{ film.id }}" class="btn btn-warning btn-sm text-black">
+								<i class="bi bi-chat-square-text"></i> Noter
+							</a>
+						</div>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{% endblock %}
