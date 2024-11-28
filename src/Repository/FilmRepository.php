@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Core\DatabaseConnection;
-use App\Service\EntityMapper;
 use App\Entity\Film;
+use App\Service\EntityMapper;
 
 class FilmRepository
 {
@@ -28,7 +28,7 @@ class FilmRepository
         return $this->entityMapperService->mapToEntities($films, Film::class);
     }
 
-    // Récupérer un film par son ID
+    // Récupérer un film grâce à son ID
     public function findById($id)
     {
         $query = 'SELECT * FROM film WHERE id = :id';
@@ -43,16 +43,19 @@ class FilmRepository
     // Ajouter un nouveau film
     public function create($data)
     {
+        // Réinitialiser l'auto-incrément à 1
+        $this->db->exec("ALTER TABLE film AUTO_INCREMENT = 1");
+
         $stmt = $this->db->prepare("
-            INSERT INTO film (title, year, genre, synopsis, director, created_at) 
-            VALUES (:title, :year, :genre, :synopsis, :director, NOW())
+            INSERT INTO film (title, year, type, synopsis, director, created_at)
+            VALUES (:title, :year, :type, :synopsis, :director, NOW())
         ");
         return $stmt->execute([
             ':title' => $data['title'],
             ':year' => $data['year'],
-            ':genre' => $data['genre'],
+            ':type' => $data['type'],
             ':synopsis' => $data['synopsis'],
-            ':director' => $data['director']
+            ':director' => $data['director'],
         ]);
     }
 
@@ -60,24 +63,31 @@ class FilmRepository
     public function update($id, $data)
     {
         $stmt = $this->db->prepare("
-            UPDATE film 
-            SET title = :title, year = :year, genre = :genre, synopsis = :synopsis, director = :director
+            UPDATE film
+            SET title = :title, year = :year, type = :type, synopsis = :synopsis, director = :director
             WHERE id = :id
         ");
         return $stmt->execute([
             ':id' => $id,
             ':title' => $data['title'],
             ':year' => $data['year'],
-            ':genre' => $data['genre'],
+            ':type' => $data['type'],
             ':synopsis' => $data['synopsis'],
-            ':director' => $data['director']
+            ':director' => $data['director'],
         ]);
     }
 
-    // Supprimer un film par son ID
+    // Supprimer un film grâce à son ID
     public function delete($id)
     {
         $stmt = $this->db->prepare("DELETE FROM film WHERE id = :id");
-        return $stmt->execute([':id' => $id]);
+        $result = $stmt->execute([':id' => $id]);
+
+        if ($result) {
+            // Réinitialiser l'auto-incrément
+            $this->db->exec("ALTER TABLE film AUTO_INCREMENT = 1");
+        }
+
+        return $result;
     }
 }

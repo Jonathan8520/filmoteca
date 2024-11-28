@@ -2,10 +2,18 @@
 
 namespace App\Core;
 
+use App\Controller\HomeController;
 use App\Controller\FilmController;
+use App\Controller\ContactController;
 
 class Router
 {
+    private $twig;
+
+    public function __construct($twig)
+    {
+        $this->twig = $twig;
+    }
 
     public function route()
     {
@@ -32,7 +40,8 @@ class Router
                 return;
             }
 
-            $controller = new $controllerName();
+            // Instancie le contrôleur en passant l'instance de Twig
+            $controller = new $controllerName($this->twig);
 
             // Vérifie si la méthode existe dans le contrôleur
             if (method_exists($controller, $action)) {
@@ -42,8 +51,8 @@ class Router
                 echo "Action '$action' not found in $controllerName";
             }
         } else {
-            // Page non trouvée
-            echo "404 Not Found";
+            // Si la route n'existe pas, affiche une page 404
+            echo $this->twig->render('404.html.twig');
         }
     }
 }

@@ -1,0 +1,78 @@
+<style>
+/* Pour rendre le dropdown visible au survol */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Pour éviter que le dropdown ne soit affiché par défaut */
+.dropdown-menu {
+    display: none;
+}
+</style>
+
+<header>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container">
+			<a class="navbar-brand" href="/">
+				<img src="/img/filmoteca.png" alt="Filmoteca" width="115" class="d-inline-block align-text-top me-2">
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/">
+							<i class="bi bi-house"></i>
+							Accueil
+						</a>
+					</li>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link" href="/films" id="navbarDropdown">
+							<i class="bi bi-film"></i>
+							Films
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li>
+								<a class="dropdown-item" href="/films/list">Voir tout</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="/films/create">Ajouter un film</a>
+							</li>
+						</ul>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="/contact">
+							<i class="bi bi-person"></i>
+							Contact
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+
+
+{# Mettre en surbrillance le lien actif #}
+ <script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// Récupérer l'URL actuelle
+		const currentPath = window.location.pathname;
+	
+		// Récupérer tous les liens de navigation
+		const links = document.querySelectorAll('nav a');
+	
+		// Parcourir tous les liens
+		links.forEach(link => {
+			// Si l'URL actuelle correspond exactement ou commence par l'URL du lien
+			if (currentPath === link.getAttribute('href') || currentPath.startsWith(link.getAttribute('href') + '/')) {
+				link.classList.add('active');
+			} else {
+				link.classList.remove('active');
+			}
+		});
+	});
+</script>

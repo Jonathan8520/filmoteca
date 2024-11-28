@@ -5,73 +5,33 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
-			{% block title %} {% endblock %}
+			{% block title %}{% endblock %}
 		</title>
 
 		{# <link rel="stylesheet" href="/style/base.css"> #}
 		{% block stylesheet %}{% endblock %}
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 	</head>
 
-	<body>
+	<body style="min-width: 320px;">
 
-		<header>
-			<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-				<div class="container">
-					<a class="navbar-brand" href="/">Filmoteca</a>
-					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarNav">
-						<ul class="navbar-nav ms-auto">
-							<li class="nav-item">
-								<a class="nav-link" href="/">Accueil</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/films">Films</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/contact">Contact</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-		</header>
-
-
-		    <script>
-				document.addEventListener('DOMContentLoaded', function () {
-					// Récupérer l'URL actuelle
-					const currentPath = window.location.pathname;
-				
-					// Récupérer tous les liens de navigation
-					const links = document.querySelectorAll('nav a');
-				
-					// Parcourir tous les liens
-					links.forEach(link => {
-						// Si l'URL actuelle correspond exactement ou commence par l'URL du lien
-						if (currentPath === link.getAttribute('href') || currentPath.startsWith(link.getAttribute('href') + '/')) {
-							link.classList.add('active');
-						} else {
-							link.classList.remove('active');
-						}
-					});
-				});
-			</script>
-
+		{% include ('fragments/navbar.html.twig') %}
 
 		<main>
+			{% if app.session.flash %}
+				<div class="alert alert-{{ app.session.flash.type }} alert-dismissible fade show w-50 mx-auto text-center mt-4" role="alert">
+					{{ app.session.flash.message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endif %}
+
 			{% block body %}{% endblock %}
 		</main>
 
-		<footer class="bg-dark text-white text-center py-3 mt-4">
-			<div class="container">
-				<p class="mb-0">Copyright © 2024
-					<strong>Filmoteca</strong>. Tous droits réservés.</p>
-			</div>
-		</footer>
+		{% include ('fragments/footer.html.twig') %}
 
+		 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 	</body>
 

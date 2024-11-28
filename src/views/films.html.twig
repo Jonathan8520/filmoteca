@@ -1,42 +1,70 @@
 {% extends 'index.html.twig' %}
 
 {% block title %}
-    Films - Liste
+	Films - Liste
 {% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center align-items-center my-3 gap-3">
-        <a href="/films/create" class="btn btn-success">Ajouter des films</a>
-        <a href="/films/list" class="btn btn-primary">Voir tout</a>
-    </div>
+	<div class="d-flex justify-content-center align-items-center my-3 gap-3">
+		<a href="/films/create" class="btn btn-success">
+			<i class="bi bi-plus-circle"></i>
+			Ajouter un film
+		</a>
+		<a href="/films/list" class="btn btn-primary">
+			<i class="bi bi-list-ul"></i>
+			Voir tout
+		</a>
+	</div>
 
-    <hr>
+	<hr>
 
-    <h3 class="text-center mb-4">Aperçu de ma collection :</h3>
+	<h3 class="text-center mb-4">Films ajoutés récemment à ma collection :</h3>
 
-    <div class="row row-cols-1 row-cols-md-3 w-75 mx-auto">
-        {% for film in films|slice(0, 3) %}
-            <div class="col">
-                <div class="card h-100 shadow">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ film.title }}</h4>
-                        <p class="card-text"><strong>Année :</strong> {{ film.year }}</p>
-                        <p class="card-text"><strong>Genre :</strong> {{ film.type }}</p>
-                        <p class="card-text"><strong>Réalisateur :</strong> {{ film.director }}</p>
-                        <p class="card-text">
-                            <strong>Synopsis :</strong> 
-                            {{ film.synopsis|slice(0, 100) }}...
-                        </p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between flex-wrap ">
-                        <a href="/films/read?id={{ film.id }}" class="btn btn-outline-success btn-sm">Détails</a>
-                        <a href="/films/update?id={{ film.id }}" class="btn btn-outline-warning btn-sm">Modifier</a>
-                        <a href="/films/delete?id={{ film.id }}" class="btn btn-outline-danger btn-sm">Supprimer</a>
-                        <a href="/films/add-note?id={{ film.id }}" class="btn btn-outline-primary btn-sm">Ajouter note</a>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-    
+	<div class="row row-cols-1 row-cols-md-3 w-80 mx-auto p-3">
+		{% for film in films|slice(-3, 3) %}
+			<div class="col mb-4">
+				<div class="card h-100 shadow">
+					<div class="card-body">
+						<h4 class="card-title">{{ film.title }}</h4>
+						<p class="card-text">
+							<strong>ID :</strong>
+							{{ film.id }}</p>
+						<p class="card-text">
+							<strong>Année :</strong>
+							{{ film.year }}</p>
+						<p class="card-text">
+							<strong>Genre :</strong>
+							{{ film.type }}</p>
+						<p class="card-text">
+							<strong>Réalisateur :</strong>
+							{{ film.director }}</p>
+						<p class="card-text">
+							<strong>Synopsis :</strong>
+							{{ film.synopsis|length > 100 ? film.synopsis|slice(0, 100) ~ '...' : film.synopsis }}
+						</p>
+					</div>
+					<div class="card-footer d-flex flex-wrap justify-content-evenly gap-3">
+						<a href="/films/read?id={{ film.id }}" class="btn btn-outline-success btn-sm">
+							<i class="bi bi-info-circle"></i>
+							Détails
+						</a>
+						<a href="/films/update?id={{ film.id }}" class="btn btn-outline-primary btn-sm">
+							<i class="bi bi-pencil-square"></i>
+							Modifier
+						</a>
+						<a href="/films/delete?id={{ film.id }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?');">
+							<i class="bi bi-trash"></i>
+							Supprimer
+						</a>
+						<a href="/films/add?id={{ film.id }}" class="btn btn-outline-warning btn-sm">
+							<i class="bi bi-chat-square-text"></i>
+							Noter
+						</a>
+
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
 {% endblock %}

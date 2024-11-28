@@ -1,8 +1,14 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+// Charge l'autoloader de Composer (si ce n'est pas déjà fait)
+require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\Core\Router;
+// Configuration de Twig
+$loader = new \Twig\Loader\FilesystemLoader('../src/views');
+$twig = new \Twig\Environment($loader, [
+    'cache' => false,
+]);
 
-$router = new Router();
+// Instancie le routeur en passant l'instance de Twig
+$router = new \App\Core\Router($twig);
 $router->route();
