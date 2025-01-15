@@ -18,10 +18,11 @@ class FilmRepository
     }
 
     // Récupérer tous les films
-    public function findAll()
+    public function findAll(): array
     {
-        $query = 'SELECT * FROM film';
-        $stmt = $this->db->query($query);
+        $stmt = $this->db->query("
+            SELECT * FROM film
+        ");
 
         $films = $stmt->fetchAll();
 
@@ -29,10 +30,11 @@ class FilmRepository
     }
 
     // Récupérer un film grâce à son ID
-    public function findById($id)
+    public function findById($id): Film
     {
-        $query = 'SELECT * FROM film WHERE id = :id';
-        $stmt = $this->db->prepare($query);
+        $stmt = $this->db->prepare("
+            SELECT * FROM film WHERE id = :id
+        ");
         $stmt->execute(['id' => $id]);
 
         $film = $stmt->fetch();
@@ -41,7 +43,7 @@ class FilmRepository
     }
 
     // Ajouter un nouveau film
-    public function create($data)
+    public function create(Film $film): bool
     {
         // Réinitialiser l'auto-incrément à 1
         $this->db->exec("ALTER TABLE film AUTO_INCREMENT = 1");
@@ -51,16 +53,16 @@ class FilmRepository
             VALUES (:title, :year, :type, :synopsis, :director, NOW())
         ");
         return $stmt->execute([
-            ':title' => $data['title'],
-            ':year' => $data['year'],
-            ':type' => $data['type'],
-            ':synopsis' => $data['synopsis'],
-            ':director' => $data['director'],
+            ':title' => $film->getTitle(),
+            ':year' => $film->getYear(),
+            ':type' => $film->getType(),
+            ':synopsis' => $film->getSynopsis(),
+            ':director' => $film->getDirector(),
         ]);
     }
 
     // Mettre à jour un film existant
-    public function update($id, $data)
+    public function update($id, Film $film): bool
     {
         $stmt = $this->db->prepare("
             UPDATE film
@@ -69,16 +71,16 @@ class FilmRepository
         ");
         return $stmt->execute([
             ':id' => $id,
-            ':title' => $data['title'],
-            ':year' => $data['year'],
-            ':type' => $data['type'],
-            ':synopsis' => $data['synopsis'],
-            ':director' => $data['director'],
-        ]);
+            ':title' => $film->getTitle(),
+            ':year' => $film->getYear(),
+            ':type' => $film->getType(),
+            ':synopsis' => $film->getSynopsis(),
+            ':director' => $film->getDirector(),
+        ]); 
     }
-
+    
     // Supprimer un film grâce à son ID
-    public function delete($id)
+    public function delete($id): bool
     {
         $stmt = $this->db->prepare("DELETE FROM film WHERE id = :id");
         $result = $stmt->execute([':id' => $id]);

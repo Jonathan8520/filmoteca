@@ -3,41 +3,44 @@
 namespace App\Controller;
 
 use App\Repository\FilmRepository;
+use App\Service\EntityMapper;
+use App\Entity\Film;
 
 class FilmController extends BaseController
 {
 
+    private $filmRepository;
+    private $entityMapper;
+
+    public function __construct($twig)
+    {
+        parent::__construct($twig);
+        $this->filmRepository = new FilmRepository();
+        $this->entityMapper = new EntityMapper();
+    }
+
     public function index()
     {
-        $filmRepository = new FilmRepository();
-        $films = $filmRepository->findAll();
+        $films = $this->filmRepository->findAll();
 
-        echo $this->twig->render('films.html.twig', ['films' => $films]);
+        echo $this->twig->render('film/films.html.twig', ['films' => $films]);
     }
 
     public function list()
     {
-        $filmRepository = new FilmRepository();
-        $films = $filmRepository->findAll();
+        $films = $this->filmRepository->findAll();
 
-        echo $this->twig->render('films_liste.html.twig', ['films' => $films]);
+        echo $this->twig->render('film/films_liste.html.twig', ['films' => $films]);
     }
 
     public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $filmRepository = new FilmRepository();
 
-            $newFilm = [
-                'title' => $_POST['title'],
-                'year' => (int) $_POST['year'],
-                'synopsis' => $_POST['synopsis'],
-                'director' => $_POST['director'],
-                'type' => $_POST['type'],
-            ];
+            $newFilm = $this->entityMapper->mapToEntity($_POST, Film::class);
 
-            if ($filmRepository->create($newFilm)) {
-                $this->setFlash('success', 'Le film "' . $newFilm['title'] . '" a bien été ajouté.');
+            if ($this->filmRepository->create($newFilm)) {
+                $this->setFlash('success', 'Le film "' . $newFilm->getTitle() . '" a bien été ajouté.');
             } else {
                 $this->setFlash('danger', 'Une erreur est survenue lors de l\'ajout du film.');
             }
@@ -46,38 +49,29 @@ class FilmController extends BaseController
             exit;
         }
 
-        echo $this->twig->render('film_add.html.twig');
+        echo $this->twig->render('film/film_add.html.twig');
     }
 
-    public function read(array $queryParams)
+    public function read(array $queryParams): void
     {
-
         $id = (int) $queryParams['id'];
         $filmRepository = new FilmRepository();
         $film = $filmRepository->findById($id);
 
-        echo $this->twig->render('film_details.html.twig', ['film' => $film]);
+        echo $this->twig->render('film/film_details.html.twig', ['film' => $film]);
     }
 
-    public function update(array $queryParams)
+    public function update(array $queryParams): void
     {
         $id = (int) $queryParams['id'];
-        $filmRepository = new FilmRepository();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $updatedFilm = [
-                'id' => $id,
-                'title' => $_POST['title'],
-                'year' => (int) $_POST['year'],
-                'synopsis' => $_POST['synopsis'],
-                'director' => $_POST['director'],
-                'type' => $_POST['type'],
-            ];
 
-            $filmRepository->update($id, $updatedFilm);
-
-            if ($filmRepository->update($id, $updatedFilm)) {
-                $this->setFlash('success', 'Le film "' . $updatedFilm['title'] . '" a bien été modifié.');
+            $updatedFilm = $this->entityMapper->mapToEntity($_POST, Film::class);
+            $updatedFilm->setId($id);
+    
+            if ($this->filmRepository->update($id, $updatedFilm)) {
+                $this->setFlash('success', 'Le film "' . $updatedFilm->getTitle() . '" a bien été modifié.');
             } else {
                 $this->setFlash('danger', 'Une erreur est survenue lors de la modification du film.');
             }
@@ -86,17 +80,16 @@ class FilmController extends BaseController
             exit;
         }
 
-        $film = $filmRepository->findById($id);
+        $film = $this->filmRepository->findById($id);
 
-        echo $this->twig->render('film_modif.html.twig', ['film' => $film]);
+        echo $this->twig->render('film/film_modif.html.twig', ['film' => $film]);
     }
 
-    public function delete(array $queryParams)
+    public function delete(array $queryParams): void
     {
         $id = (int) $queryParams['id'];
-        $filmRepository = new FilmRepository();
 
-        if ($filmRepository->delete($id)) {
+        if ($this->filmRepository->delete($id)) {
             $this->setFlash('success', "Le film $id a bien été supprimé.");
         } else {
             $this->setFlash('danger', 'Une erreur est survenue lors de la suppression du film.');
