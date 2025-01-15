@@ -21,7 +21,7 @@ class FilmRepository
     public function findAll(): array
     {
         $stmt = $this->db->query("
-            SELECT * FROM film
+            SELECT * FROM film WHERE deleted_at IS NULL
         ");
 
         $films = $stmt->fetchAll();
@@ -45,12 +45,12 @@ class FilmRepository
     // Ajouter un nouveau film
     public function create(Film $film): bool
     {
-        // Réinitialiser l'auto-incrément à 1
         $this->db->exec("ALTER TABLE film AUTO_INCREMENT = 1");
 
         $stmt = $this->db->prepare("
             INSERT INTO film (title, year, type, synopsis, director, created_at)
             VALUES (:title, :year, :type, :synopsis, :director, NOW())
+            
         ");
         return $stmt->execute([
             ':title' => $film->getTitle(),
@@ -66,7 +66,7 @@ class FilmRepository
     {
         $stmt = $this->db->prepare("
             UPDATE film
-            SET title = :title, year = :year, type = :type, synopsis = :synopsis, director = :director
+            SET title = :title, year = :year, type = :type, synopsis = :synopsis, director = :director, updated_at = NOW(), deleted_at = NULL
             WHERE id = :id
         ");
         return $stmt->execute([
@@ -82,14 +82,14 @@ class FilmRepository
     // Supprimer un film grâce à son ID
     public function delete($id): bool
     {
-        $stmt = $this->db->prepare("DELETE FROM film WHERE id = :id");
-        $result = $stmt->execute([':id' => $id]);
-
-        if ($result) {
-            // Réinitialiser l'auto-incrément
-            $this->db->exec("ALTER TABLE film AUTO_INCREMENT = 1");
-        }
-
-        return $result;
+        // DELETE FROM film WHERE id = :id
+        
+        // mettre à jour que la colonne deleted_at et éviter la modification de updated_at
+        $stmt = $this->db->prepare("
+            UPDATE film 
+            SET deleted_at = NOW() 
+            WHERE id = :id AND deleted_at IS NULL
+        ");
+        return $stmt->execute([':id' => $id]);
     }
 }

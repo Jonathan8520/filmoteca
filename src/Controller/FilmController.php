@@ -14,26 +14,26 @@ class FilmController extends BaseController
 
     public function __construct($twig)
     {
-        parent::__construct($twig);
+        parent::__construct($twig); // Vient de BaseController
         $this->filmRepository = new FilmRepository();
         $this->entityMapper = new EntityMapper();
     }
 
-    public function index()
+    public function index(): void
     {
         $films = $this->filmRepository->findAll();
 
         echo $this->twig->render('film/films.html.twig', ['films' => $films]);
     }
 
-    public function list()
+    public function list(): void
     {
         $films = $this->filmRepository->findAll();
 
         echo $this->twig->render('film/films_liste.html.twig', ['films' => $films]);
     }
 
-    public function create()
+    public function create(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
